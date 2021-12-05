@@ -10,7 +10,7 @@ amount of time to collect large amount of articles.
 
 Currently, you can only install through github.
 
-    devtools::install_github("TylerKai/nytall")
+    devtools::install_github("toldham2/nytall")
 
 *Dependents will be downloaded automatically: jsonlite (>= 1.7.2), plyr
 (>= 1.8.6), stringr (>= 1.4.0)*
