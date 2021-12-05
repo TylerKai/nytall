@@ -1,7 +1,5 @@
 # nytall
 
-================
-
 A simple one-function package that uses a timed loop and some field
 simplification to collect all New York Times article search API data for
 a given search term. Collects a max of 2,000 articles in each search
