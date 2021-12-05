@@ -1,0 +1,23 @@
+Package: nytall
+Title: New York Times Article Search API Manager
+Version: 0.1
+Authors@R: c(
+    person("Tyler", "Oldham", email = "toldham2@elon.edu", role = c("aut", "cre")),
+    person("Brian", "Walsh", email = "bwalsh5@elon.edu", role = "ctb"))
+URL: https://tyleroldham.com, https://github.com/TylerKai
+Description: A simple one-function package that allows you to collect New York
+    Times article search API data en masse for a given search term. *Collects a
+    max of 2,000 articles in each search year at a rate of 75 articles/min.
+    Warning: May take a significant amount of time to collect large amount of
+    articles.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Depends:
+    jsonlite (>= 1.7.2),
+    plyr (>= 1.8.6),
+    stringr (>= 1.4.0)
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
