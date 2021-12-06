@@ -96,3 +96,4 @@ get_articles <- function(term, start, nyt_key, years = NULL) {
 
   return(df_pages)
 }
+

@@ -25,14 +25,11 @@ API key. You’ll need the key later.
 
 ### Get Data
 
-After installing, simply library this package and run `get_articles`:
+After installing, library this package and run `get_articles`:
 
     library(nytall)
 
-    df <- get_articles(term = "google",
-                       start = 1998,
-                       nyt_key = "x2RHw04sGnbh3tAnXQhJqxAeyCApVbRt",
-                       years = 2)
+    df <- get_articles(term = "google", start = 1999, nyt_key = nyt_key, years = 1)
 
 |  | response.docs.pub_date | response.docs.headline.main | response.docs.byline.original |
 |-|:--|:--|:--|
@@ -44,7 +41,11 @@ After installing, simply library this package and run `get_articles`:
 | 6 | 1999-07-22T05:00:00+0000 | I Link, Therefore I Am: a Web Intellectual's Diary | By Katie Hafner |
 | 7 | 1999-01-24T05:00:00+0000 | On the Road, Again | By Ann Douglas |
 
-*Extra variables cut for presentation, click below to see all 34 variables*
+*Extra variables cut for presentation, see documentation for all 31 text variables*
+
+You may also run `get_articles` without the `years` argument to get all years up to the present year:
+
+    df <- get_articles(term = "biden", start = 2018, nyt_key = nyt_key)
 
 ### Clean and export
 
@@ -56,7 +57,13 @@ In order to export to a spreadsheet, run:
 
 ## Documentation
 
-[Click here for full documentation of the data
+- `term`: A string defining the search term. Use single apostrophes around
+#' term for exact matches.
+- `start`: A numeric year (YYYY) to start the search in.
+- `nyt_key` A string defining your New York Times API key: https://developer.nytimes.com/
+- `years`: (Optional) A numeric number of years to search after the start year. Default or NULL gets all data from start to current year.
+
+[Click here for NYT's documentation of the output data
 available.](https://developer.nytimes.com/docs/articlesearch-product/1/types/Article)
 
 |  | status | copyright | response.docs.abstract | response.docs.web_url | response.docs.snippet | response.docs.lead_paragraph | response.docs.print_section | response.docs.print_page | response.docs.source | response.docs.pub_date | response.docs.document_type | response.docs.news_desk | response.docs.section_name | response.docs.type_of_material | response.docs._id | response.docs.word_count | response.docs.uri | response.docs.subsection_name | response.docs.headline.main | response.docs.headline.kicker | response.docs.headline.content_kicker | response.docs.headline.print_headline | response.docs.headline.name | response.docs.headline.seo | response.docs.headline.sub | response.docs.byline.original | response.docs.byline.organization | response.meta.hits | response.meta.offset | response.meta.time | keyword |
