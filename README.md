@@ -25,11 +25,11 @@ API key. You’ll need the key later.
 
 ### Get Data
 
-After installing, library this package and run `article_search`:
+After installing, library this package and run `get_articles`:
 
     library(nytall)
 
-    df <- article_search(term = "google", start = 1999, nyt_key = nyt_key, years = 1, fields = "glocations", field_query = "San Francisco")
+    df <- get_articles(term = "google", start = 1999, nyt_key = nyt_key, years = 1, fields = "glocations", field_query = "San Francisco")
 
 |  | response.docs.pub_date | response.docs.headline.main | response.docs.byline.original |
 |-|:--|:--|:--|
@@ -43,13 +43,13 @@ After installing, library this package and run `article_search`:
 
 *Extra variables cut for presentation, see documentation for all 31 text variables*
 
-You may also run `article_search` without the `years` argument to get all years up to the present year:
+You may also run `get_articles` without the `years` argument to get all years up to the present year:
 
-    df <- article_search(term = "google", start = 1999, nyt_key = nyt_key, fields = "glocations", field_query = "San Francisco")
+    df <- get_articles(term = "google", start = 1999, nyt_key = nyt_key, fields = "glocations", field_query = "San Francisco")
     
 Additionally, remove the `fields` and `fields_query` argument to expand your search results:
 
-    df <- article_search(term = "google", start = 1999, nyt_key = nyt_key)
+    df <- get_articles(term = "google", start = 1999, nyt_key = nyt_key)
 
 ### Clean and export
 
