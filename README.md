@@ -1,4 +1,4 @@
-# nytall
+# nytall (1.1)
 
 A simple one-function package that allows you to collect New York
     Times article search API data en masse for a given search term. *Collects a
