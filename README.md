@@ -1,10 +1,10 @@
 # nytall
 
-A simple one-function package that uses a timed loop and some field
-simplification to collect all New York Times article search API data for
-a given search term. Collects a max of 2,000 articles in each search
-year at a rate of 75 articles/min. Warning: May take a significant
-amount of time to collect large amount of articles.
+A simple one-function package that allows you to collect New York
+    Times article search API data en masse for a given search term. *Collects a
+    max of 2,000 articles in each search year at a rate of 75 articles/min.
+    Warning: May take a significant amount of time to collect large amount of
+    articles.
 
 ## Installation
 
@@ -25,11 +25,11 @@ API key. You’ll need the key later.
 
 ### Get Data
 
-After installing, library this package and run `get_articles`:
+After installing, library this package and run `article_search`:
 
     library(nytall)
 
-    df <- get_articles(term = "google", start = 1999, nyt_key = nyt_key, years = 1)
+    df <- article_search(term = "google", start = 1999, nyt_key = nyt_key, years = 1, fields = "glocations", field_query = "San Francisco")
 
 |  | response.docs.pub_date | response.docs.headline.main | response.docs.byline.original |
 |-|:--|:--|:--|
@@ -43,9 +43,13 @@ After installing, library this package and run `get_articles`:
 
 *Extra variables cut for presentation, see documentation for all 31 text variables*
 
-You may also run `get_articles` without the `years` argument to get all years up to the present year:
+You may also run `article_search` without the `years` argument to get all years up to the present year:
 
-    df <- get_articles(term = "biden", start = 2018, nyt_key = nyt_key)
+    df <- article_search(term = "google", start = 1999, nyt_key = nyt_key, fields = "glocations", field_query = "San Francisco")
+    
+Additionally, remove the `fields` and `fields_query` argument to expand your search results:
+
+    df <- article_search(term = "google", start = 1999, nyt_key = nyt_key)
 
 ### Clean and export
 
@@ -62,6 +66,8 @@ In order to export to a spreadsheet, run:
 - `start`: A numeric year (YYYY) to start the search in.
 - `nyt_key` A string defining your New York Times API key: https://developer.nytimes.com/
 - `years`: (Optional) A numeric number of years to search after the start year. Default or NULL gets all data from start to current year.
+- `fields`: (Optional) Only for use with *fields_query* parameter. Enter the field exactly as shown on the API documentation: https://developer.nytimes.com/docs/articlesearch-product/1/overview
+- `fields_query`: (Optional) Only for use with *fields* parameter. Enter the field query exactly as shown on the API documentation: https://developer.nytimes.com/docs/articlesearch-product/1/overview
 
 [Click here for NYT's documentation of the output data
 available.](https://developer.nytimes.com/docs/articlesearch-product/1/types/Article)

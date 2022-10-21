@@ -4,7 +4,7 @@ Version: 1.0.0
 Authors@R: c(
     person("Tyler", "Oldham", email = "toldham2@elon.edu", role = c("aut", "cre")),
     person("Brian", "Walsh", email = "bwalsh5@elon.edu", role = "ctb"))
-URL: https://tyleroldham.com, https://github.com/TylerKai
+URL: https://tyleroldham.com, https://github.com/toldham2
 Description: A simple one-function package that allows you to collect New York
     Times article search API data en masse for a given search term. *Collects a
     max of 2,000 articles in each search year at a rate of 75 articles/min.
