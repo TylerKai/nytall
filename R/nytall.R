@@ -1,21 +1,25 @@
-#' Collect NYT Article Data for a Search Term by Year Ranges and Field Filters
+#' Collect NYT Article Search API Data by Term for Select Years
 #'
-#' This function returns a dataframe of New York Times article data. Gets up to 2,000 articles in each search year at up to 75 articles/min. Updates will be printed in the console every 8 seconds.
+#' This function returns a dataframe of New York Times article data for a given
+#' term and selected years. Gets up to 2,000 articles in each search year at up
+#' to 75 articles/min. Updates will be printed in the console every 8 seconds.
 #'
-#' @param term A string defining the search term. Use single apostrophes (') around term for exact matches.
-#' @param start A numeric year (YYYY) to start the search on.
-#' @param nyt_key A string defining your New York Times API key: https://developer.nytimes.com/
-#' @param years (Optional) A numeric number of years to search after the start year. Empty or NULL gets all data from start to current year.
-#' @param fields (Optional) Only for use with *fields_query* parameter. Enter the field exactly as shown on the API documentation: https://developer.nytimes.com/docs/articlesearch-product/1/overview
-#' @param fields_query (Optional) Only for use with *fields* parameter. Enter the field query exactly as shown on the API documentation: https://developer.nytimes.com/docs/articlesearch-product/1/overview
+#' @param term A string defining the search term. Use single apostrophes around
+#' term for exact matches.
+#' @param start A numeric year (YYYY) to start the search in.
+#' @param nyt_key A string defining your New York Times API key:
+#' https://developer.nytimes.com/
+#' @param years (Optional) A numeric number of years to search after the start
+#' year. Default or NULL gets all data from start to current year.
 #' @return A dataframe of one article per row with various text/meta columns.
-#' @examples # df <- article_search(term = "conservation", start = 1960, nyt_key = nyt_key)
-#' df <- article_search(term = "conservation", start = 1960, nyt_key = nyt_key, *years = 10, fields = "glocations", field_query = "Los Angeles"*)
+#' @examples # df <- get_articles("conservation", 1960, nyt_key)
+#' # df <- get_articles("'climate change'", 1960, nyt_key)
+#' # df <- get_articles("'climate change'", 1960, nyt_key, 10)
 #' @import jsonlite
 #' @import plyr
 #' @import stringr
 #' @export
-article_search <- function(term, start, nyt_key, years = NULL, fields = NULL, fields_query = NULL) {
+get_articles <- function(term, start, nyt_key, years = NULL) {
   start_year <- start
   nyt_key_local <- nyt_key
 
@@ -41,25 +45,12 @@ article_search <- function(term, start, nyt_key, years = NULL, fields = NULL, fi
     str_current_date <- paste0(current_year, "0101")
     str_current_year_end <- paste0(current_year_end, "0101")
 
-    str_baseurl <- paste0("https://api.nytimes.com/svc/search/v2/articlesearch.json",
-      "?begin_date=", str_current_date,
-      "&end_date=", str_current_year_end,
-      "&facet=false&facet_fields=news_desk&facet_filter=true&q=", term_fmt,
-      "&sort=oldest",
-      "&api-key=", nyt_key_local
-      )
-
-    if (!is.null(fields)) {
-      fields_fmt <- str_replace_all(fields, "'", "%22")
-      fields_fmt <- str_replace_all(fields_fmt, " ", "%20")
-      str_baseurl <- paste0(str_baseurl, "&fl=", fields_fmt)
-    }
-
-    if (!is.null(fields_query)) {
-      fields_query_fmt <- str_replace_all(fields_query, "'", "%22")
-      fields_query_fmt <- str_replace_all(fields_query_fmt, " ", "%20")
-      str_baseurl <- paste0(str_baseurl, "&fq=", fields_query_fmt)
-    }
+    str_baseurl <- paste0(
+      "https://api.nytimes.com/svc/search/v2/articlesearch.json?begin_date=",
+      str_current_date, "&end_date=", str_current_year_end,
+      "&facet=false&facet_fields=news_desk&facet_filter=true&q=",
+      term_fmt, "&sort=relevance&api-key=", nyt_key_local
+    )
 
     initial_query <- fromJSON(str_baseurl)
     max_pages <- ceiling((initial_query$response$meta$hits[1] / 10) - 1)
@@ -105,4 +96,3 @@ article_search <- function(term, start, nyt_key, years = NULL, fields = NULL, fi
 
   return(df_pages)
 }
-
