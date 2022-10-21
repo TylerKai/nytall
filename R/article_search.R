@@ -50,11 +50,15 @@ article_search <- function(term, start, nyt_key, years = NULL, fields = NULL, fi
       )
 
     if (!is.null(fields)) {
-      str_baseurl <- paste0(str_baseurl, "&fl=", fields)
+      fields_fmt <- str_replace_all(fields, "'", "%22")
+      fields_fmt <- str_replace_all(fields_fmt, " ", "%20")
+      str_baseurl <- paste0(str_baseurl, "&fl=", fields_fmt)
     }
 
     if (!is.null(fields_query)) {
-      str_baseurl <- paste0(str_baseurl, "&fq=", fields_query)
+      fields_query_fmt <- str_replace_all(fields_query, "'", "%22")
+      fields_query_fmt <- str_replace_all(fields_query_fmt, " ", "%20")
+      str_baseurl <- paste0(str_baseurl, "&fq=", fields_query_fmt)
     }
 
     initial_query <- fromJSON(str_baseurl)
