@@ -44,7 +44,7 @@ article_search <- function(term, start, nyt_key, years = NULL, fields = NULL, fi
     str_baseurl <- paste0("https://api.nytimes.com/svc/search/v2/articlesearch.json",
       "?begin_date=", str_current_date,
       "&end_date=", str_current_year_end,
-      "&q=", term_fmt,
+      "&facet=false&facet_fields=news_desk&facet_filter=true&q=", term_fmt,
       "&sort=oldest",
       "&api-key=", nyt_key_local
       )
